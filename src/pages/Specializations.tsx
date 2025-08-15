@@ -39,10 +39,12 @@ const Specializations = () => {
   ];
 
   const filteredSpecializations = specializationsData.filter(spec => {
-    const matchesSearch = spec.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const matchesSearch = searchTerm === "" || 
+                         spec.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          spec.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          spec.subSpecializations.some(sub => 
-                           sub.name.toLowerCase().includes(searchTerm.toLowerCase())
+                           sub.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           sub.description.toLowerCase().includes(searchTerm.toLowerCase())
                          );
     const matchesCategory = selectedCategory === "all" || spec.category === selectedCategory;
     return matchesSearch && matchesCategory;
