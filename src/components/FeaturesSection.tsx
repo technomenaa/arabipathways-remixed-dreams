@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, BookOpen, Users, MessageCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const FeaturesSection = () => {
   const features = [
@@ -49,8 +50,10 @@ const FeaturesSection = () => {
         </div>
 
         <div className="text-center">
-          <Button size="lg" className="bg-gradient-accent hover:opacity-90 shadow-button px-12">
-            ابدأ رحلتك الأكاديمية الآن
+          <Button size="lg" className="bg-gradient-accent hover:opacity-90 shadow-button px-12" asChild>
+            <Link to="/guidance">
+              طلب استشارة أكاديمية
+            </Link>
           </Button>
         </div>
       </div>

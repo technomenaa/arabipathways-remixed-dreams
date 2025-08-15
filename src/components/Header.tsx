@@ -35,7 +35,7 @@ const Header = () => {
             
             {isAuthenticated ? (
               <div className="flex items-center space-x-3 rtl:space-x-reverse">
-                <Link to={user?.role === 'admin' ? '/admin' : '/student-dashboard'}>
+                <Link to={user?.role === 'admin' ? '/admin' : '/dashboard'}>
                   <Button variant="outline" size="sm">
                     <User className="w-4 h-4 ml-2" />
                     {user?.name}

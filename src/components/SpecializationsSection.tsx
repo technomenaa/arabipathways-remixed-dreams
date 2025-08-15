@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 import engineeringImage from "@/assets/engineering-lab.jpg";
 import medicalImage from "@/assets/medical-studies.jpg";
 import businessImage from "@/assets/business-studies.jpg";
@@ -83,9 +84,11 @@ const SpecializationsSection = () => {
                   </div>
                 </div>
                 
-                <Button variant="outline" className="w-full group">
-                  استكشف التخصص
-                  <ArrowLeft className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-smooth" />
+                <Button variant="outline" className="w-full group" asChild>
+                  <Link to="/specializations">
+                    التخصصات الفرعية
+                    <ArrowLeft className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-smooth" />
+                  </Link>
                 </Button>
               </CardContent>
             </Card>
@@ -93,8 +96,10 @@ const SpecializationsSection = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Button size="lg" variant="outline" className="px-12">
-            عرض جميع التخصصات
+          <Button size="lg" variant="outline" className="px-12" asChild>
+            <Link to="/specializations">
+              عرض جميع التخصصات
+            </Link>
           </Button>
         </div>
       </div>

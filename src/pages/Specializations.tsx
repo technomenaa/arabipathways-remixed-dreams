@@ -143,8 +143,10 @@ const Specializations = () => {
                   </div>
                 </div>
                   
-                  <Button className="w-full bg-gradient-accent hover:opacity-90">
-                    تفاصيل التخصص
+                  <Button className="w-full bg-gradient-accent hover:opacity-90" asChild>
+                    <Link to={`/specialization/${spec.title}`}>
+                      التخصصات الفرعية
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>

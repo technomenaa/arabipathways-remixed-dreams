@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, BookOpen, Users, GraduationCap } from "lucide-react";
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-campus.jpg";
 
 const HeroSection = () => {
@@ -48,13 +49,17 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button size="lg" className="bg-gradient-accent hover:opacity-90 shadow-button px-8">
-              <BookOpen className="w-5 h-5 ml-2" />
-              ابدأ اختبار التوجيه المهني
+            <Button size="lg" className="bg-gradient-accent hover:opacity-90 shadow-button px-8" asChild>
+              <Link to="/career-test">
+                <BookOpen className="w-5 h-5 ml-2" />
+                ابدأ اختبار التوجيه المهني
+              </Link>
             </Button>
-            <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
-              <GraduationCap className="w-5 h-5 ml-2" />
-              استكشف التخصصات
+            <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10" asChild>
+              <Link to="/specializations">
+                <GraduationCap className="w-5 h-5 ml-2" />
+                استكشف التخصصات
+              </Link>
             </Button>
           </div>
 

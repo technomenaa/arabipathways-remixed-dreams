@@ -162,19 +162,19 @@ const Universities = () => {
                   
                   {/* Contact Actions */}
                   <div className="space-y-2">
-                    <Button className="w-full bg-gradient-accent hover:opacity-90">
+                    <Button className="w-full bg-gradient-accent hover:opacity-90" onClick={() => window.open(`https://www.google.com/search?q=${university.name}`, '_blank')}>
                       تفاصيل الجامعة
                     </Button>
                     <div className="flex gap-2">
-                      <Button variant="outline" size="sm" className="flex-1">
+                      <Button variant="outline" size="sm" className="flex-1" onClick={() => window.open(`tel:+96265000000`, '_blank')}>
                         <Phone className="w-4 h-4 ml-1" />
                         اتصال
                       </Button>
-                      <Button variant="outline" size="sm" className="flex-1">
+                      <Button variant="outline" size="sm" className="flex-1" onClick={() => window.open(`mailto:info@${university.name.replace(/\s+/g, '').toLowerCase()}.edu.jo`, '_blank')}>
                         <Mail className="w-4 h-4 ml-1" />
                         إيميل
                       </Button>
-                      <Button variant="outline" size="sm" className="flex-1">
+                      <Button variant="outline" size="sm" className="flex-1" onClick={() => window.open(`https://www.${university.name.replace(/\s+/g, '').toLowerCase()}.edu.jo`, '_blank')}>
                         <Globe className="w-4 h-4 ml-1" />
                         الموقع
                       </Button>
