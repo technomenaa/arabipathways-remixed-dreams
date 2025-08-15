@@ -29,7 +29,7 @@ export const specializationsData: Specialization[] = [
     id: "engineering",
     title: "الهندسة",
     description: "تخصص يركز على تطبيق المبادئ العلمية والرياضية لحل المشاكل العملية وتصميم وبناء الهياكل والأنظمة",
-    image: "/src/assets/engineering-lab.jpg",
+    image: "src/assets/engineering-lab.jpg",
     universities: 15,
     students: "5,200+",
     category: "علوم تطبيقية",
@@ -170,7 +170,7 @@ export const specializationsData: Specialization[] = [
     id: "medicine",
     title: "الطب",
     description: "تخصص يهتم بدراسة الأمراض وتشخيصها وعلاجها والوقاية منها",
-    image: "/src/assets/medical-studies.jpg",
+    image: "src/assets/medical-studies.jpg",
     universities: 12,
     students: "3,800+",
     category: "علوم صحية",
@@ -266,7 +266,7 @@ export const specializationsData: Specialization[] = [
     id: "business",
     title: "إدارة الأعمال",
     description: "تخصص يدرس مبادئ الإدارة والقيادة والتسويق والمالية",
-    image: "/src/assets/business-studies.jpg",
+    image: "src/assets/business-studies.jpg",
     universities: 20,
     students: "7,500+",
     category: "علوم إدارية",
@@ -355,6 +355,212 @@ export const specializationsData: Specialization[] = [
           "إدارة المخاطر",
           "التمويل الدولي",
           "أسواق المال"
+        ]
+      }
+    ]
+  },
+  {
+    id: "computer-science",
+    title: "علوم الحاسوب",
+    description: "تخصص يركز على دراسة الخوارزميات والبرمجة وتطوير الأنظمة الرقمية",
+    image: "src/assets/engineering-lab.jpg",
+    universities: 18,
+    students: "4,100+",
+    category: "علوم تطبيقية",
+    subSpecializations: [
+      {
+        id: "artificial-intelligence",
+        name: "الذكاء الاصطناعي",
+        description: "تخصص يركز على تطوير الأنظمة الذكية والتعلم الآلي",
+        duration: "4 سنوات",
+        jobTitles: [
+          "مطور ذكاء اصطناعي",
+          "عالم بيانات",
+          "مهندس تعلم آلي",
+          "محلل بيانات",
+          "مطور روبوتات",
+          "مستشار ذكاء اصطناعي"
+        ],
+        universities: [
+          "الجامعة الأردنية",
+          "جامعة العلوم والتكنولوجيا",
+          "جامعة الأميرة سمية",
+          "الجامعة الألمانية الأردنية"
+        ],
+        admissionRequirements: [
+          "معدل توجيهي 85% فأكثر",
+          "علامة عالية في الرياضيات",
+          "مهارات في البرمجة"
+        ],
+        averageGrade: "85%",
+        careerOutlook: "ممتاز - مجال سريع النمو",
+        averageSalary: "1000-2500 دينار شهرياً",
+        skills: [
+          "البرمجة بلغات متعددة",
+          "التحليل الإحصائي",
+          "التفكير المنطقي",
+          "حل المشكلات المعقدة",
+          "التعلم المستمر"
+        ],
+        coursesInclude: [
+          "خوارزميات التعلم الآلي",
+          "الشبكات العصبية",
+          "معالجة اللغات الطبيعية",
+          "رؤية الحاسوب",
+          "علم البيانات",
+          "أخلاقيات الذكاء الاصطناعي"
+        ]
+      },
+      {
+        id: "cybersecurity",
+        name: "الأمن السيبراني",
+        description: "تخصص يهتم بحماية الأنظمة والشبكات من التهديدات الرقمية",
+        duration: "4 سنوات",
+        jobTitles: [
+          "مختص أمن سيبراني",
+          "محلل أمني",
+          "مهندس أمن المعلومات",
+          "خبير اختبار الاختراق",
+          "مستشار أمن سيبراني",
+          "مدير أمن تقني"
+        ],
+        universities: [
+          "جامعة العلوم والتكنولوجيا",
+          "الجامعة الأردنية",
+          "جامعة الأميرة سمية",
+          "الجامعة الهاشمية"
+        ],
+        admissionRequirements: [
+          "معدل توجيهي 82% فأكثر",
+          "فهم أساسي للشبكات",
+          "مهارات تحليلية قوية"
+        ],
+        averageGrade: "82%",
+        careerOutlook: "ممتاز - طلب عالي جداً",
+        averageSalary: "900-2200 دينار شهرياً",
+        skills: [
+          "اختبار الاختراق",
+          "تحليل التهديدات",
+          "إدارة المخاطر",
+          "التشفير",
+          "أمن الشبكات"
+        ],
+        coursesInclude: [
+          "أمن الشبكات",
+          "التشفير",
+          "اختبار الاختراق",
+          "تحليل البرمجيات الخبيثة",
+          "أمن التطبيقات",
+          "إدارة الحوادث الأمنية"
+        ]
+      }
+    ]
+  },
+  {
+    id: "law",
+    title: "القانون",
+    description: "تخصص يدرس النظم القانونية والتشريعات والعدالة",
+    image: "src/assets/business-studies.jpg",
+    universities: 16,
+    students: "6,200+",
+    category: "علوم إنسانية",
+    subSpecializations: [
+      {
+        id: "civil-law",
+        name: "القانون المدني",
+        description: "تخصص يتعامل مع القوانين المنظمة للعلاقات بين الأفراد والمؤسسات",
+        duration: "4 سنوات",
+        jobTitles: [
+          "محامي مدني",
+          "مستشار قانوني",
+          "قاضي",
+          "كاتب عدل",
+          "محكم قانوني",
+          "مدعي عام"
+        ],
+        universities: [
+          "الجامعة الأردنية",
+          "جامعة اليرموك",
+          "جامعة عمان الأهلية",
+          "الجامعة الأمريكية"
+        ],
+        admissionRequirements: [
+          "معدل توجيهي 75% فأكثر",
+          "مهارات في اللغة العربية",
+          "القدرة على التحليل والنقد"
+        ],
+        averageGrade: "75%",
+        careerOutlook: "جيد - طلب مستقر",
+        averageSalary: "600-1500 دينار شهرياً",
+        skills: [
+          "البحث القانوني",
+          "الكتابة القانونية",
+          "المرافعة",
+          "التفاوض",
+          "التحليل النقدي"
+        ],
+        coursesInclude: [
+          "أصول القانون",
+          "القانون المدني",
+          "قانون العقود",
+          "قانون الملكية",
+          "أصول المحاكمات",
+          "القانون التجاري"
+        ]
+      }
+    ]
+  },
+  {
+    id: "education",
+    title: "التربية والتعليم",
+    description: "تخصص يهتم بإعداد المعلمين وتطوير الأساليب التعليمية",
+    image: "src/assets/medical-studies.jpg",
+    universities: 22,
+    students: "8,900+",
+    category: "علوم تربوية",
+    subSpecializations: [
+      {
+        id: "elementary-education",
+        name: "تعليم أساسي",
+        description: "تخصص إعداد معلمين للمرحلة الأساسية",
+        duration: "4 سنوات",
+        jobTitles: [
+          "معلم مرحلة أساسية",
+          "مشرف تربوي",
+          "مدير مدرسة",
+          "مطور مناهج",
+          "مستشار تعليمي",
+          "منسق أنشطة"
+        ],
+        universities: [
+          "الجامعة الأردنية",
+          "جامعة اليرموك",
+          "الجامعة الهاشمية",
+          "جامعة آل البيت",
+          "جامعة مؤتة"
+        ],
+        admissionRequirements: [
+          "معدل توجيهي 65% فأكثر",
+          "مهارات تواصل جيدة",
+          "شخصية مناسبة للتعليم"
+        ],
+        averageGrade: "65%",
+        careerOutlook: "جيد - طلب مستمر",
+        averageSalary: "500-900 دينار شهرياً",
+        skills: [
+          "إدارة الصف",
+          "التواصل التعليمي",
+          "استخدام التكنولوجيا",
+          "التقييم التربوي",
+          "التخطيط التعليمي"
+        ],
+        coursesInclude: [
+          "علم النفس التربوي",
+          "طرق التدريس",
+          "تطوير المناهج",
+          "القياس والتقويم",
+          "إدارة الصف",
+          "تكنولوجيا التعليم"
         ]
       }
     ]

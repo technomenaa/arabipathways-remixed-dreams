@@ -6,9 +6,26 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, MapPin, BookOpen, Users, Building2 } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { specializationsData } from "@/data/specializations";
+import { useEffect } from "react";
+import engineeringImage from "@/assets/engineering-lab.jpg";
+import medicalImage from "@/assets/medical-studies.jpg";
+import businessImage from "@/assets/business-studies.jpg";
 
 const SpecializationList = () => {
   const { category } = useParams();
+
+  // إصلاح مشكلة التمرير - الانتقال إلى أعلى الصفحة
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // دالة للحصول على الصورة المناسبة
+  const getSpecializationImage = (mainImage: string) => {
+    if (mainImage.includes('engineering')) return engineeringImage;
+    if (mainImage.includes('medical')) return medicalImage;
+    if (mainImage.includes('business')) return businessImage;
+    return engineeringImage; // صورة افتراضية
+  };
   
   // Get all sub-specializations for the selected category
   const getSubSpecializations = () => {
@@ -64,7 +81,7 @@ const SpecializationList = () => {
               <Card key={index} className="group overflow-hidden border-0 shadow-card hover:shadow-lg transition-smooth">
                 <div className="relative h-48 overflow-hidden">
                   <img 
-                    src={subSpec.mainImage || "/api/placeholder/400/300"} 
+                    src={getSpecializationImage(subSpec.mainImage || "")} 
                     alt={subSpec.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-smooth"
                   />

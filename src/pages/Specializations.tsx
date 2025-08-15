@@ -5,13 +5,29 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Filter, GraduationCap } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { specializationsData } from "@/data/specializations";
+import engineeringImage from "@/assets/engineering-lab.jpg";
+import medicalImage from "@/assets/medical-studies.jpg";
+import businessImage from "@/assets/business-studies.jpg";
 
 const Specializations = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+
+  // إصلاح مشكلة التمرير - الانتقال إلى أعلى الصفحة
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  // دالة للحصول على الصورة المناسبة
+  const getSpecializationImage = (imagePath: string) => {
+    if (imagePath.includes('engineering')) return engineeringImage;
+    if (imagePath.includes('medical')) return medicalImage;
+    if (imagePath.includes('business')) return businessImage;
+    return engineeringImage; // صورة افتراضية
+  };
 
   const categories = [
     { id: "all", name: "جميع التخصصات" },
@@ -98,7 +114,7 @@ const Specializations = () => {
               <Card key={index} className="group overflow-hidden border-0 shadow-card hover:shadow-lg transition-smooth">
                 <div className="relative h-48 overflow-hidden">
                   <img 
-                    src={spec.image} 
+                    src={getSpecializationImage(spec.image)} 
                     alt={spec.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-smooth"
                   />
@@ -144,7 +160,7 @@ const Specializations = () => {
                 </div>
                   
                   <Button className="w-full bg-gradient-accent hover:opacity-90" asChild>
-                    <Link to={`/specialization/${spec.title}`}>
+                    <Link to={`/specializations/${spec.title}`}>
                       التخصصات الفرعية
                     </Link>
                   </Button>
