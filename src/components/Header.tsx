@@ -14,7 +14,7 @@ const Header = () => {
             <div className="w-8 h-8 bg-gradient-hero rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">ج</span>
             </div>
-            <span className="text-xl font-bold text-primary">مسارات الجامعات</span>
+            <span className="text-xl font-bold text-primary">The Bridge</span>
           </div>
 
           {/* Navigation */}

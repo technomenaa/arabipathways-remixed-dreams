@@ -13,7 +13,7 @@ const Footer = () => {
               <div className="w-10 h-10 bg-gradient-accent rounded-lg flex items-center justify-center">
                 <span className="text-primary font-bold">ج</span>
               </div>
-              <span className="text-2xl font-bold">مسارات الجامعات</span>
+              <span className="text-2xl font-bold">The Bridge</span>
             </div>
             <p className="text-white/80 leading-relaxed">
               دليلك الشامل لاختيار التخصص الجامعي المناسب وبناء مستقبل أكاديمي ناجح في أفضل الجامعات الأردنية.
@@ -86,7 +86,7 @@ const Footer = () => {
         <hr className="border-white/20 my-8" />
 
         <div className="flex flex-col md:flex-row justify-between items-center text-white/80">
-          <p>&copy; 2024 مسارات الجامعات العربية. جميع الحقوق محفوظة.</p>
+          <p>&copy; 2024 The Bridge. جميع الحقوق محفوظة.</p>
           <div className="flex space-x-6 rtl:space-x-reverse mt-4 md:mt-0">
             <a href="/privacy" className="hover:text-white transition-smooth">سياسة الخصوصية</a>
             <a href="/terms" className="hover:text-white transition-smooth">الشروط والأحكام</a>
