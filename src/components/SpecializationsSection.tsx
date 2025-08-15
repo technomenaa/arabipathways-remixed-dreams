@@ -88,7 +88,7 @@ const SpecializationsSection = () => {
                 </div>
                 
                 <Button variant="outline" className="w-full group" asChild>
-                  <Link to={`/specializations-list/${spec.title}`}>
+                  <Link to={`/specializations/${spec.title}`}>
                     التخصصات الفرعية
                     <ArrowLeft className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-smooth" />
                   </Link>

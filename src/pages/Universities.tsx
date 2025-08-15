@@ -5,8 +5,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, MapPin, Phone, Mail, Globe, Users, Star } from "lucide-react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Universities = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
   const universities = [
     {
       name: "الجامعة الأردنية",
@@ -76,6 +80,15 @@ const Universities = () => {
     }
   ];
 
+  const filteredUniversities = universities.filter(university => 
+    searchTerm === "" || 
+    university.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    university.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    university.specialties.some(specialty => 
+      specialty.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  );
+
   return (
     <div className="min-h-screen" dir="rtl">
       <Header />
@@ -95,6 +108,8 @@ const Universities = () => {
                 <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70 w-5 h-5" />
                 <Input 
                   placeholder="ابحث عن الجامعة..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   className="bg-white/20 border-white/30 text-white placeholder:text-white/70 pr-12"
                 />
               </div>
@@ -109,8 +124,16 @@ const Universities = () => {
       {/* Universities Grid */}
       <section className="py-20">
         <div className="container mx-auto px-4">
+          {searchTerm && (
+            <div className="mb-6 text-center">
+              <p className="text-muted-foreground">
+                عرض {filteredUniversities.length} نتيجة للبحث عن "<span className="font-bold">{searchTerm}</span>"
+              </p>
+            </div>
+          )}
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {universities.map((university, index) => (
+            {filteredUniversities.map((university, index) => (
               <Card key={index} className="group overflow-hidden border-0 shadow-card hover:shadow-lg transition-smooth">
                 <CardHeader className="pb-4">
                   <div className="flex justify-between items-start mb-2">
@@ -162,8 +185,10 @@ const Universities = () => {
                   
                   {/* Contact Actions */}
                   <div className="space-y-2">
-                    <Button className="w-full bg-gradient-accent hover:opacity-90" onClick={() => window.open(`https://www.google.com/search?q=${university.name}`, '_blank')}>
-                      تفاصيل الجامعة
+                    <Button className="w-full bg-gradient-accent hover:opacity-90" asChild>
+                      <Link to="/universities">
+                        التواصل مع الجامعات
+                      </Link>
                     </Button>
                     <div className="flex gap-2">
                       <Button variant="outline" size="sm" className="flex-1" onClick={() => window.open(`tel:+96265000000`, '_blank')}>
@@ -174,7 +199,7 @@ const Universities = () => {
                         <Mail className="w-4 h-4 ml-1" />
                         إيميل
                       </Button>
-                      <Button variant="outline" size="sm" className="flex-1" onClick={() => window.open(`https://www.${university.name.replace(/\s+/g, '').toLowerCase()}.edu.jo`, '_blank')}>
+                      <Button variant="outline" size="sm" className="flex-1" onClick={() => window.open(`https://www.google.com/search?q=${university.name}+الموقع+الرسمي`, '_blank')}>
                         <Globe className="w-4 h-4 ml-1" />
                         الموقع
                       </Button>
