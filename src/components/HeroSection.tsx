@@ -2,9 +2,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, BookOpen, Users, GraduationCap } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import heroImage from "@/assets/hero-campus.jpg";
 
 const HeroSection = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = () => {
+    if (searchTerm.trim()) {
+      window.location.href = `/specializations?search=${encodeURIComponent(searchTerm)}`;
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -38,10 +47,13 @@ const HeroSection = () => {
                 <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70 w-5 h-5" />
                 <Input 
                   placeholder="ابحث عن التخصص الذي يناسبك..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
                   className="bg-white/20 border-white/30 text-white placeholder:text-white/70 pr-12 py-3"
                 />
               </div>
-              <Button className="bg-gradient-accent hover:opacity-90 shadow-button px-8 py-3">
+              <Button className="bg-gradient-accent hover:opacity-90 shadow-button px-8 py-3" onClick={handleSearch}>
                 البحث
               </Button>
             </div>

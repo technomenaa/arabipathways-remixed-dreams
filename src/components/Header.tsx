@@ -28,9 +28,11 @@ const Header = () => {
 
           {/* Actions */}
           <div className="flex items-center space-x-4 rtl:space-x-reverse">
-            <Button variant="outline" size="sm" className="hidden sm:flex">
-              <Search className="w-4 h-4 ml-2" />
-              البحث
+            <Button variant="outline" size="sm" className="hidden sm:flex" asChild>
+              <Link to="/specializations">
+                <Search className="w-4 h-4 ml-2" />
+                البحث
+              </Link>
             </Button>
             
             {isAuthenticated ? (

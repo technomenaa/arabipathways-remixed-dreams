@@ -174,8 +174,10 @@ const SpecializationDetail = () => {
                       </div>
                     ))}
                   </div>
-                  <Button className="w-full mt-4 bg-gradient-accent hover:opacity-90">
-                    مقارنة الجامعات
+                  <Button className="w-full mt-4 bg-gradient-accent hover:opacity-90" asChild>
+                    <Link to="/universities">
+                      التواصل مع الجامعات
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>
@@ -186,8 +188,10 @@ const SpecializationDetail = () => {
                   <h3 className="text-xl font-bold text-primary">إجراءات سريعة</h3>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                  <Button className="w-full bg-gradient-accent hover:opacity-90">
-                    طلب استشارة مجانية
+                  <Button className="w-full bg-gradient-accent hover:opacity-90" asChild>
+                    <Link to="/guidance">
+                      طلب استشارة مجانية
+                    </Link>
                   </Button>
                   <Button variant="outline" className="w-full">
                     تحميل دليل التخصص
