@@ -3,37 +3,35 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { specializationsData } from "@/data/specializations";
 import engineeringImage from "@/assets/engineering-lab.jpg";
 import medicalImage from "@/assets/medical-studies.jpg";
 import businessImage from "@/assets/business-studies.jpg";
 
 const SpecializationsSection = () => {
-  const specializations = [
-    {
-      title: "الهندسة",
-      description: "تخصص يركز على تطبيق المبادئ العلمية والرياضية لحل المشاكل العملية وتصميم وبناء الهياكل والأنظمة",
-      image: engineeringImage,
-      universities: "15 جامعة",
-      subFields: ["الهندسة الكيميائية", "الهندسة المعمارية", "الهندسة المدنية"],
-      gradient: "from-blue-500 to-cyan-500"
-    },
-    {
-      title: "الطب",
-      description: "تخصص يهتم بدراسة الأمراض وتشخيصها وعلاجها والوقاية منها، بالإضافة إلى فهم وظائف الجسم البشري",
-      image: medicalImage,
-      universities: "12 جامعة",
-      subFields: ["الطب العام", "طب الأسنان", "الصيدلة"],
-      gradient: "from-red-500 to-pink-500"
-    },
-    {
-      title: "إدارة الأعمال",
-      description: "تخصص يدرس مبادئ الإدارة والقيادة وإدارة الموارد البشرية والتسويق والمالية في المنظمات التجارية",
-      image: businessImage,
-      universities: "20 جامعة",
-      subFields: ["التسويق", "المالية", "إدارة الموارد البشرية"],
-      gradient: "from-green-500 to-emerald-500"
+  const getSpecializationImage = (imagePath: string) => {
+    if (imagePath.includes('engineering')) return engineeringImage;
+    if (imagePath.includes('medical')) return medicalImage;
+    if (imagePath.includes('business')) return businessImage;
+    return engineeringImage;
+  };
+
+  const getGradientClass = (category: string) => {
+    switch (category) {
+      case 'علوم تطبيقية':
+        return 'from-blue-500 to-cyan-500';
+      case 'علوم صحية':
+        return 'from-red-500 to-pink-500';
+      case 'علوم إدارية':
+        return 'from-green-500 to-emerald-500';
+      case 'علوم إنسانية':
+        return 'from-purple-500 to-violet-500';
+      case 'علوم تربوية':
+        return 'from-orange-500 to-yellow-500';
+      default:
+        return 'from-gray-500 to-slate-500';
     }
-  ];
+  };
 
   return (
     <section className="py-20">
@@ -48,18 +46,18 @@ const SpecializationsSection = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {specializations.map((spec, index) => (
+          {specializationsData.map((spec, index) => (
             <Card key={index} className="group overflow-hidden border-0 shadow-card hover:shadow-lg transition-smooth">
               <div className="relative h-48 overflow-hidden">
                 <img 
-                  src={spec.image} 
+                  src={getSpecializationImage(spec.image)} 
                   alt={spec.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-smooth"
                 />
-                <div className={`absolute inset-0 bg-gradient-to-t ${spec.gradient} opacity-80`}></div>
+                <div className={`absolute inset-0 bg-gradient-to-t ${getGradientClass(spec.category)} opacity-80`}></div>
                 <div className="absolute top-4 right-4">
                   <Badge variant="secondary" className="bg-white/90">
-                    {spec.universities}
+                    {spec.universities} جامعة
                   </Badge>
                 </div>
               </div>
@@ -76,16 +74,21 @@ const SpecializationsSection = () => {
                 <div className="mb-6">
                   <h4 className="font-semibold text-primary mb-3">التخصصات الفرعية:</h4>
                   <div className="flex flex-wrap gap-2">
-                    {spec.subFields.map((field, idx) => (
+                    {spec.subSpecializations.slice(0, 3).map((subSpec, idx) => (
                       <Badge key={idx} variant="outline" className="text-xs">
-                        {field}
+                        {subSpec.name}
                       </Badge>
                     ))}
+                    {spec.subSpecializations.length > 3 && (
+                      <Badge variant="outline" className="text-xs">
+                        +{spec.subSpecializations.length - 3} المزيد
+                      </Badge>
+                    )}
                   </div>
                 </div>
                 
                 <Button variant="outline" className="w-full group" asChild>
-                  <Link to="/specializations">
+                  <Link to={`/specializations-list/${spec.title}`}>
                     التخصصات الفرعية
                     <ArrowLeft className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-smooth" />
                   </Link>
