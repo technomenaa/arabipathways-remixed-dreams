@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Search, Menu, User } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -16,11 +17,11 @@ const Header = () => {
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
-            <a href="/" className="text-foreground hover:text-primary transition-smooth">الرئيسية</a>
-            <a href="/specializations" className="text-foreground hover:text-primary transition-smooth">التخصصات</a>
-            <a href="/universities" className="text-foreground hover:text-primary transition-smooth">الجامعات</a>
-            <a href="/career-test" className="text-foreground hover:text-primary transition-smooth">اختبار التوجيه</a>
-            <a href="/guidance" className="text-foreground hover:text-primary transition-smooth">الإرشاد الأكاديمي</a>
+            <Link to="/" className="text-foreground hover:text-primary transition-smooth">الرئيسية</Link>
+            <Link to="/specializations" className="text-foreground hover:text-primary transition-smooth">التخصصات</Link>
+            <Link to="/universities" className="text-foreground hover:text-primary transition-smooth">الجامعات</Link>
+            <Link to="/career-test" className="text-foreground hover:text-primary transition-smooth">اختبار التوجيه</Link>
+            <Link to="/guidance" className="text-foreground hover:text-primary transition-smooth">الإرشاد الأكاديمي</Link>
           </nav>
 
           {/* Actions */}
