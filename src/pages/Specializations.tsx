@@ -5,67 +5,37 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Filter, GraduationCap } from "lucide-react";
-import engineeringImage from "@/assets/engineering-lab.jpg";
-import medicalImage from "@/assets/medical-studies.jpg";
-import businessImage from "@/assets/business-studies.jpg";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { specializationsData } from "@/data/specializations";
 
 const Specializations = () => {
-  const specializations = [
-    {
-      title: "الهندسة",
-      description: "تخصص يركز على تطبيق المبادئ العلمية والرياضية لحل المشاكل العملية وتصميم وبناء الهياكل والأنظمة",
-      image: engineeringImage,
-      universities: 15,
-      students: "5,200+",
-      subFields: ["الهندسة الكيميائية", "الهندسة المعمارية", "الهندسة المدنية", "هندسة الكمبيوتر"],
-      category: "علوم تطبيقية"
-    },
-    {
-      title: "الطب",
-      description: "تخصص يهتم بدراسة الأمراض وتشخيصها وعلاجها والوقاية منها، بالإضافة إلى فهم وظائف الجسم البشري",
-      image: medicalImage,
-      universities: 12,
-      students: "3,800+",
-      subFields: ["الطب العام", "طب الأسنان", "الصيدلة", "التمريض"],
-      category: "علوم صحية"
-    },
-    {
-      title: "إدارة الأعمال",
-      description: "تخصص يدرس مبادئ الإدارة والقيادة وإدارة الموارد البشرية والتسويق والمالية في المنظمات التجارية",
-      image: businessImage,
-      universities: 20,
-      students: "7,500+",
-      subFields: ["التسويق", "المالية", "إدارة الموارد البشرية", "ريادة الأعمال"],
-      category: "علوم إدارية"
-    },
-    {
-      title: "علوم الحاسوب",
-      description: "تخصص يركز على دراسة الخوارزميات وتطوير البرمجيات وأنظمة قواعد البيانات والذكاء الاصطناعي",
-      image: engineeringImage,
-      universities: 18,
-      students: "4,600+",
-      subFields: ["البرمجة", "الذكاء الاصطناعي", "أمن المعلومات", "تطوير الألعاب"],
-      category: "علوم تطبيقية"
-    },
-    {
-      title: "الحقوق",
-      description: "تخصص يدرس القوانين والأنظمة القانونية وتطبيقها في المجتمع والمؤسسات المختلفة",
-      image: businessImage,
-      universities: 14,
-      students: "2,900+",
-      subFields: ["القانون المدني", "القانون الجنائي", "القانون التجاري", "القانون الدولي"],
-      category: "علوم إنسانية"
-    },
-    {
-      title: "التربية",
-      description: "تخصص يهتم بإعداد المعلمين والمربين وتطوير طرق التدريس والمناهج التعليمية",
-      image: medicalImage,
-      universities: 16,
-      students: "3,200+",
-      subFields: ["تعليم أساسي", "تربية خاصة", "علم النفس التربوي", "المناهج والتدريس"],
-      category: "علوم تربوية"
-    }
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  const categories = [
+    { id: "all", name: "جميع التخصصات" },
+    { id: "علوم تطبيقية", name: "علوم تطبيقية" },
+    { id: "علوم صحية", name: "علوم صحية" },
+    { id: "علوم إدارية", name: "علوم إدارية" },
+    { id: "علوم إنسانية", name: "علوم إنسانية" },
+    { id: "علوم تربوية", name: "علوم تربوية" }
   ];
+
+  const filteredSpecializations = specializationsData.filter(spec => {
+    const matchesSearch = spec.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         spec.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         spec.subSpecializations.some(sub => 
+                           sub.name.toLowerCase().includes(searchTerm.toLowerCase())
+                         );
+    const matchesCategory = selectedCategory === "all" || spec.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  const handleSearch = () => {
+    // Search is already filtered in real-time
+    console.log("Searching for:", searchTerm);
+  };
 
   return (
     <div className="min-h-screen" dir="rtl">
@@ -86,14 +56,25 @@ const Specializations = () => {
                 <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70 w-5 h-5" />
                 <Input 
                   placeholder="ابحث عن التخصص..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   className="bg-white/20 border-white/30 text-white placeholder:text-white/70 pr-12"
                 />
               </div>
-              <Button variant="outline" className="border-white/30 text-white hover:bg-white/10">
-                <Filter className="w-4 h-4 ml-2" />
-                تصفية النتائج
-              </Button>
-              <Button className="bg-gradient-accent hover:opacity-90 shadow-button">
+              
+              <select 
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="bg-white/20 border border-white/30 text-white rounded-lg px-4 py-2"
+              >
+                {categories.map(cat => (
+                  <option key={cat.id} value={cat.id} className="text-primary bg-white">
+                    {cat.name}
+                  </option>
+                ))}
+              </select>
+              
+              <Button className="bg-gradient-accent hover:opacity-90 shadow-button" onClick={handleSearch}>
                 بحث
               </Button>
             </div>
@@ -104,8 +85,16 @@ const Specializations = () => {
       {/* Specializations Grid */}
       <section className="py-20">
         <div className="container mx-auto px-4">
+          {searchTerm && (
+            <div className="mb-6 text-center">
+              <p className="text-muted-foreground">
+                عرض {filteredSpecializations.length} نتيجة للبحث عن "<span className="font-bold">{searchTerm}</span>"
+              </p>
+            </div>
+          )}
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {specializations.map((spec, index) => (
+            {filteredSpecializations.map((spec, index) => (
               <Card key={index} className="group overflow-hidden border-0 shadow-card hover:shadow-lg transition-smooth">
                 <div className="relative h-48 overflow-hidden">
                   <img 
@@ -136,16 +125,23 @@ const Specializations = () => {
                     {spec.description}
                   </p>
                   
-                  <div className="mb-6">
-                    <h4 className="font-semibold text-primary mb-3">التخصصات الفرعية:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {spec.subFields.map((field, idx) => (
-                        <Badge key={idx} variant="outline" className="text-xs">
-                          {field}
+                <div className="mb-6">
+                  <h4 className="font-semibold text-primary mb-3">التخصصات الفرعية:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {spec.subSpecializations.slice(0, 3).map((subSpec, idx) => (
+                      <Link key={idx} to={`/specialization/${subSpec.id}`}>
+                        <Badge variant="outline" className="text-xs hover:bg-primary hover:text-white transition-smooth cursor-pointer">
+                          {subSpec.name}
                         </Badge>
-                      ))}
-                    </div>
+                      </Link>
+                    ))}
+                    {spec.subSpecializations.length > 3 && (
+                      <Badge variant="outline" className="text-xs">
+                        +{spec.subSpecializations.length - 3} المزيد
+                      </Badge>
+                    )}
                   </div>
+                </div>
                   
                   <Button className="w-full bg-gradient-accent hover:opacity-90">
                     تفاصيل التخصص

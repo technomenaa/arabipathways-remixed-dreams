@@ -6,70 +6,22 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, Clock, Brain, Target, Users, BookOpen } from "lucide-react";
 import { useState } from "react";
+import { careerQuestions, personalityResults, type PersonalityResult } from "@/data/questions";
 
 const CareerTest = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<string[]>([]);
+  const [answers, setAnswers] = useState<{[key: string]: number}>({});
   const [showResult, setShowResult] = useState(false);
 
-  const questions = [
-    {
-      id: 1,
-      question: "ما هو نوع النشاط الذي تفضل القيام به في وقت فراغك؟",
-      options: [
-        "حل المسائل الرياضية والألغاز",
-        "قراءة الكتب والمقالات",
-        "ممارسة الرياضة والأنشطة البدنية",
-        "الرسم والأعمال الفنية"
-      ]
-    },
-    {
-      id: 2,
-      question: "أي من البيئات التالية تفضل العمل فيها؟",
-      options: [
-        "مختبر علمي أو تقني",
-        "مكتب هادئ ومنظم",
-        "في الهواء الطلق أو مواقع مختلفة",
-        "استوديو إبداعي أو ورشة عمل"
-      ]
-    },
-    {
-      id: 3,
-      question: "ما هي نقطة قوتك الأساسية؟",
-      options: [
-        "التفكير التحليلي والمنطقي",
-        "التواصل والكتابة",
-        "القيادة والعمل الجماعي",
-        "الإبداع والخيال"
-      ]
-    },
-    {
-      id: 4,
-      question: "أي من هذه المواد الدراسية كنت تحبها أكثر؟",
-      options: [
-        "الرياضيات والفيزياء",
-        "اللغة العربية والتاريخ",
-        "التربية الرياضية والأحياء",
-        "الفن والموسيقى"
-      ]
-    },
-    {
-      id: 5,
-      question: "كيف تفضل حل المشاكل؟",
-      options: [
-        "بتحليل البيانات والحقائق",
-        "بالبحث والاستشارة",
-        "بالعمل الجماعي والتشاور",
-        "بالتفكير الإبداعي والابتكار"
-      ]
-    }
-  ];
-
   const handleAnswer = (answer: string) => {
-    const newAnswers = [...answers, answer];
+    const question = careerQuestions[currentQuestion];
+    const newAnswers = {
+      ...answers,
+      [question.category]: (answers[question.category] || 0) + 1
+    };
     setAnswers(newAnswers);
     
-    if (currentQuestion < questions.length - 1) {
+    if (currentQuestion < careerQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
       setShowResult(true);
@@ -78,46 +30,16 @@ const CareerTest = () => {
 
   const restartTest = () => {
     setCurrentQuestion(0);
-    setAnswers([]);
+    setAnswers({});
     setShowResult(false);
   };
 
-  const getResult = () => {
-    // Simple logic to determine result based on answers
-    const analyticalCount = answers.filter(a => a.includes("الرياضيات") || a.includes("تحليل") || a.includes("مختبر")).length;
-    const communicativeCount = answers.filter(a => a.includes("قراءة") || a.includes("التواصل") || a.includes("اللغة")).length;
-    const leadershipCount = answers.filter(a => a.includes("القيادة") || a.includes("الجماعي") || a.includes("الرياضة")).length;
-    const creativeCount = answers.filter(a => a.includes("الفن") || a.includes("الإبداع") || a.includes("استوديو")).length;
-
-    if (analyticalCount >= 2) {
-      return {
-        title: "الشخصية التحليلية",
-        description: "أنت شخص يحب التفكير المنطقي وحل المشاكل المعقدة",
-        specializations: ["الهندسة", "علوم الحاسوب", "الرياضيات", "الفيزياء"],
-        color: "bg-blue-500"
-      };
-    } else if (communicativeCount >= 2) {
-      return {
-        title: "الشخصية التواصلية",
-        description: "أنت شخص يحب التواصل مع الآخرين والعمل في المجالات الإنسانية",
-        specializations: ["الحقوق", "الصحافة", "التربية", "علم النفس"],
-        color: "bg-green-500"
-      };
-    } else if (leadershipCount >= 2) {
-      return {
-        title: "الشخصية القيادية",
-        description: "أنت شخص يحب قيادة الفرق والعمل في بيئات ديناميكية",
-        specializations: ["إدارة الأعمال", "العلوم السياسية", "إدارة عامة"],
-        color: "bg-purple-500"
-      };
-    } else {
-      return {
-        title: "الشخصية الإبداعية",
-        description: "أنت شخص يحب الإبداع والابتكار والعمل الفني",
-        specializations: ["الفنون الجميلة", "التصميم", "الهندسة المعمارية", "الإعلام"],
-        color: "bg-orange-500"
-      };
-    }
+  const getResult = (): PersonalityResult => {
+    const maxCategory = Object.entries(answers).reduce((max, [category, score]) => 
+      score > max.score ? { category, score } : max, 
+      { category: 'analytical', score: 0 }
+    );
+    return personalityResults.find(result => result.type === maxCategory.category) || personalityResults[0];
   };
 
   if (showResult) {
@@ -125,7 +47,6 @@ const CareerTest = () => {
     return (
       <div className="min-h-screen" dir="rtl">
         <Header />
-        
         <section className="py-20">
           <div className="container mx-auto px-4 text-center">
             <div className="max-w-4xl mx-auto">
@@ -142,14 +63,28 @@ const CareerTest = () => {
                 <CardContent>
                   <p className="text-xl text-muted-foreground mb-6">{result.description}</p>
                   
-                  <div className="mb-8">
-                    <h3 className="text-xl font-bold text-primary mb-4">التخصصات المناسبة لك:</h3>
-                    <div className="flex flex-wrap justify-center gap-3">
-                      {result.specializations.map((spec, index) => (
-                        <Badge key={index} variant="outline" className="text-lg py-2 px-4">
-                          {spec}
-                        </Badge>
-                      ))}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                      <h3 className="text-xl font-bold text-primary mb-4">التخصصات المناسبة:</h3>
+                      <div className="flex flex-wrap gap-3">
+                        {result.specializations.map((spec, index) => (
+                          <Badge key={index} variant="outline" className="text-lg py-2 px-4">
+                            {spec}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <h3 className="text-xl font-bold text-primary mb-4">صفاتك الشخصية:</h3>
+                      <div className="space-y-2">
+                        {result.characteristics.map((char, index) => (
+                          <div key={index} className="flex items-center">
+                            <CheckCircle className="w-4 h-4 ml-2 text-green-500" />
+                            <span className="text-sm">{char}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                   
@@ -166,7 +101,6 @@ const CareerTest = () => {
             </div>
           </div>
         </section>
-        
         <Footer />
       </div>
     );
@@ -176,7 +110,6 @@ const CareerTest = () => {
     <div className="min-h-screen" dir="rtl">
       <Header />
       
-      {/* Hero Section */}
       <section className="bg-gradient-hero py-20 text-white">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold mb-6">اختبار التوجيه المهني</h1>
@@ -184,7 +117,6 @@ const CareerTest = () => {
             اكتشف التخصص الجامعي المناسب لشخصيتك ومهاراتك من خلال إجابتك على 15 سؤال مدروس علمياً
           </p>
           
-          {/* Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
             <div className="p-4 bg-white/10 backdrop-blur-md rounded-xl">
               <Clock className="w-8 h-8 mx-auto mb-2 text-yellow-400" />
@@ -205,33 +137,30 @@ const CareerTest = () => {
         </div>
       </section>
 
-      {/* Test Section */}
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            {/* Progress */}
             <div className="mb-8">
               <div className="flex justify-between items-center mb-4">
                 <span className="text-lg font-semibold text-primary">
-                  السؤال {currentQuestion + 1} من {questions.length}
+                  السؤال {currentQuestion + 1} من {careerQuestions.length}
                 </span>
                 <span className="text-muted-foreground">
-                  {Math.round(((currentQuestion + 1) / questions.length) * 100)}%
+                  {Math.round(((currentQuestion + 1) / careerQuestions.length) * 100)}%
                 </span>
               </div>
-              <Progress value={((currentQuestion + 1) / questions.length) * 100} className="h-3" />
+              <Progress value={((currentQuestion + 1) / careerQuestions.length) * 100} className="h-3" />
             </div>
 
-            {/* Question */}
             <Card className="shadow-card border-0">
               <CardHeader className="text-center pb-6">
                 <h2 className="text-2xl font-bold text-primary mb-4">
-                  {questions[currentQuestion].question}
+                  {careerQuestions[currentQuestion].question}
                 </h2>
               </CardHeader>
               <CardContent>
                 <div className="grid gap-4">
-                  {questions[currentQuestion].options.map((option, index) => (
+                  {careerQuestions[currentQuestion].options.map((option, index) => (
                     <Button
                       key={index}
                       variant="outline"

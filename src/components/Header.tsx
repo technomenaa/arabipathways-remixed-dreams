@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Search, Menu, User } from "lucide-react";
+import { Search, Menu, User, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
+  const { user, logout, isAuthenticated } = useAuth();
   return (
     <header className="w-full bg-white/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4">
@@ -30,13 +32,35 @@ const Header = () => {
               <Search className="w-4 h-4 ml-2" />
               البحث
             </Button>
-            <Button variant="outline" size="sm" className="hidden sm:flex">
-              <User className="w-4 h-4 ml-2" />
-              تسجيل الدخول
-            </Button>
-            <Button size="sm" className="bg-gradient-accent hover:opacity-90 shadow-button">
-              انشاء حساب
-            </Button>
+            
+            {isAuthenticated ? (
+              <div className="flex items-center space-x-3 rtl:space-x-reverse">
+                <Link to={user?.role === 'admin' ? '/admin' : '/student-dashboard'}>
+                  <Button variant="outline" size="sm">
+                    <User className="w-4 h-4 ml-2" />
+                    {user?.name}
+                  </Button>
+                </Link>
+                <Button variant="ghost" size="sm" onClick={logout}>
+                  <LogOut className="w-4 h-4" />
+                </Button>
+              </div>
+            ) : (
+              <>
+                <Link to="/login">
+                  <Button variant="outline" size="sm">
+                    <User className="w-4 h-4 ml-2" />
+                    تسجيل الدخول
+                  </Button>
+                </Link>
+                <Link to="/login">
+                  <Button size="sm" className="bg-gradient-accent hover:opacity-90 shadow-button">
+                    انشاء حساب
+                  </Button>
+                </Link>
+              </>
+            )}
+            
             <Button variant="ghost" size="sm" className="md:hidden">
               <Menu className="w-5 h-5" />
             </Button>
